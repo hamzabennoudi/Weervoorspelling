@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weersvoorspelling</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Weersvoorspelling voor {{ city }}, {{ country }}</h1>
+    <div class="weather-icons-container">
+        {% for day in forecast_days %}
+            <span class="weather-icon">
+                <img src="{{ day['day']['condition']['icon'] }}" alt="{{ day['day']['condition']['text'] }}">
+            </span>
+        {% endfor %}
+    </div>
+    <div class="dag-van-week">
+        {% for day in forecast_days %}
+            <span>{{ day['dag_van_de_week'] }}</span>
+        {% endfor %}
+    </div>
+    <table>
+        <tr>
+            <th>Datum</th>
+            <th>Dag van de Week</th>
+            <th>Min Temperatuur</th>
+            <th>Max Temperatuur</th>
+            <th>Weersomstandigheden</th>
+            <th>Zon op</th>
+            <th>Zon onder</th>
+        </tr>
+        {% for day in forecast_days %}
+            <tr>
+                <td>{{ day['date'] }}</td>
+                <td>{{ day['dag_van_de_week'] }}</td>
+                <td>{{ day['day']['mintemp_c'] }}°C</td>
+                <td>{{ day['day']['maxtemp_c'] }}°C</td>
+                <td>{{ day['day']['condition']['text'] }}</td>
+                <td>{{ day['astro']['sunrise'] }}</td>
+                <td>{{ day['astro']['sunset'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
